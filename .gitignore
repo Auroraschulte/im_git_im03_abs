@@ -3,4 +3,5 @@
 *sftp.json
 *db_config.php
 .vscode
-
+.idea
+backend/config.php
