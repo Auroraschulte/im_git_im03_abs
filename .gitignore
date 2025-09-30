@@ -2,4 +2,5 @@
 *.mow
 *sftp.json
 *db_config.php
+.vscode
 
