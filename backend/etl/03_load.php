@@ -1,21 +1,23 @@
 <?php
+require_once('02_transform.php');
+require_once('../config.php');
 
-$data = include('02_transform.php');
-
-require_once '../config.php';
+$data = transformLuzernData();
 
 try {
     $pdo = new PDO($dsn, $username, $password, $options);
     $sql = "INSERT INTO entries (counter, name) VALUES (?, ?)";
     $stmt = $pdo->prepare($sql);
 
-     $stmt->execute([
-        $data['counter'],
-        $data['name']    
-    ]);
+    foreach ($data as $row) {
+        $stmt->execute([
+            $row['counter'],
+            $row['name']
+        ]);
+    }
 
-    echo "Daten erfolgreich eingefügt.";
+    echo "Alle Daten erfolgreich eingefügt.";
 } catch (PDOException $e) {
-    die("Verbindung zur Datenbank konnte nicht hergestellt werden: " . $e->getMessage());
+    error_log("Datenbankfehler: " . $e->getMessage());
+    exit("Fehler beim Speichern.");
 }
-

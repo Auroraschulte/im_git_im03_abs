@@ -1,17 +1,17 @@
 <?php
-$data = include('01_extract.php');
+require_once('01_extract.php');
 
-$standorte = $data ['data'];
+function transformLuzernData() {
+    $raw = fetchLuzernData();
+    $standorte = $raw['data'];
 
-$transformed_data = [];
-foreach($standorte as $standort) {
-    $transformed_data[] = [
-        'counter' => $standort['counter'],
-        'name' => $standort['name']
-    ];
+    $transformed_data = [];
+    foreach ($standorte as $standort) {
+        $transformed_data[] = [
+            'counter' => $standort['counter'],
+            'name' => $standort['name']
+        ];
+    }
+
+    return $transformed_data;
 }
-
-echo '<pre>';
-print_r($transformed_data);
-echo '</pre>';
-?>

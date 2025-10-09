@@ -9,6 +9,5 @@ function fetchLuzernData() {
   return json_decode($response, true);
 }
 
-    return fetchLuzernData();
 
 ?>
