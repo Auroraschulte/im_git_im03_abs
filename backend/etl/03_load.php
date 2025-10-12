@@ -1,18 +1,16 @@
 <?php
-require_once('02_transform.php');
-require_once('../config.php');
-
-$data = transformLuzernData();
+$data = include('02_transform.php');
+require_once '../config.php';
 
 try {
     $pdo = new PDO($dsn, $username, $password, $options);
-    $sql = "INSERT INTO entries (counter, name) VALUES (?, ?)";
+    $sql = "INSERT INTO im_03lucerne (passanten, standort) VALUES (?, ?)";
     $stmt = $pdo->prepare($sql);
 
     foreach ($data as $row) {
         $stmt->execute([
-            $row['counter'],
-            $row['name']
+            $row['passanten'],
+            $row['standort']
         ]);
     }
 

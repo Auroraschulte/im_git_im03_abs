@@ -1,0 +1,159 @@
+:root {
+  --primary: #0057b8;
+  --bg: #f2f6fa;
+  --text: #222;
+  --light: #fff;
+  --accent: #f9a826;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+main.lucerne-app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+}
+
+/* HERO SECTION */
+.hero {
+  background: var(--primary);
+  color: var(--light);
+  text-align: center;
+  padding: 4rem 1rem 3rem;
+  border-radius: 0 0 2rem 2rem;
+  width: 100%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin: 0;
+  letter-spacing: -1px;
+}
+
+.hero h2 {
+  font-size: 2rem;
+  margin-top: 0.5rem;
+}
+
+.hero .subtitle {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin-top: 1.5rem;
+}
+
+/* WEEK SLIDER */
+.week-slider {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.week-days {
+  display: flex;
+  overflow-x: auto;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  justify-content: center;
+}
+
+.week-days::-webkit-scrollbar {
+  display: none;
+}
+
+.week-days .day {
+  background: var(--light);
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.week-days .day:hover {
+  background: var(--accent);
+  color: var(--light);
+}
+
+.week-days .day.active {
+  background: var(--primary);
+  color: var(--light);
+  border-color: var(--primary);
+}
+
+.week-instructions {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.week-instructions .arrow {
+  font-weight: bold;
+  color: var(--accent);
+  margin-left: 0.3rem;
+}
+
+/* LOCATIONS */
+.locations {
+  margin-top: 2.5rem;
+  width: 100%;
+  max-width: 900px;
+  padding: 0 1rem;
+}
+
+.locations h3 {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.places {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.place-card {
+  background: var(--light);
+  border-radius: 1rem;
+  padding: 1.2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+}
+
+.place-card:hover {
+  transform: translateY(-4px);
+}
+
+.place-card h4 {
+  margin: 0 0 0.5rem;
+  color: var(--primary);
+}
+
+/* EXIT BUTTON */
+.exit-section {
+  margin: 3rem 0;
+  text-align: center;
+}
+
+.exit-btn {
+  background: var(--primary);
+  color: var(--light);
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+}
+
+.exit-btn:hover {
+  background: var(--accent);
+}
