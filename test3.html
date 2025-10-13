@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How to avoid people in Lucerne</title>
+    <title>Lucerne Crowd Visualization</title>
     <style>
         :root {
             --primary-color: #2c3e50;
@@ -372,96 +372,6 @@
             background-color: var(--busy-color);
         }
         
-        .comparison-section {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            margin-bottom: 2rem;
-        }
-        
-        .comparison-section h2 {
-            color: var(--secondary-color);
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
-        
-        .comparison-chart {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 1rem;
-        }
-        
-        .location-bar {
-            height: 40px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            position: relative;
-            display: flex;
-            align-items: center;
-            padding: 0 15px;
-            color: white;
-            font-weight: bold;
-            overflow: hidden;
-        }
-        
-        .location-bar::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            background-color: inherit;
-            opacity: 0.8;
-            z-index: 1;
-        }
-        
-        .location-bar span {
-            position: relative;
-            z-index: 2;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-        }
-        
-        .location-bar:hover {
-            transform: translateX(5px);
-        }
-        
-        .location-bar-quiet {
-            background-color: var(--quiet-color);
-        }
-        
-        .location-bar-moderate {
-            background-color: var(--moderate-color);
-        }
-        
-        .location-bar-busy {
-            background-color: var(--busy-color);
-        }
-        
-        .status-indicator {
-            display: inline-block;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: bold;
-        }
-        
-        .status-quiet {
-            background-color: rgba(46, 204, 113, 0.2);
-            color: var(--quiet-color);
-        }
-        
-        .status-moderate {
-            background-color: rgba(243, 156, 18, 0.2);
-            color: var(--moderate-color);
-        }
-        
-        .status-busy {
-            background-color: rgba(231, 76, 60, 0.2);
-            color: var(--busy-color);
-        }
-        
         @media (max-width: 768px) {
             .hero h1, .hero h2 {
                 font-size: 2.5rem;
@@ -505,7 +415,7 @@
                 font-size: 1rem;
             }
             
-            .slider-container, .visualization-section, .comparison-section {
+            .slider-container, .visualization-section {
                 padding: 1.5rem;
             }
             
@@ -568,14 +478,37 @@
                         
             <div class="day-markers" id="day-markers">
                 <!-- Day markers will be populated by JavaScript -->
-            </div>   
-            
+            </div>
         </div>
         
-        <div class="comparison-section">
-            <h2>Location Comparison for <span id="comparison-day">Monday</span></h2>
-            <div class="comparison-chart" id="comparison-chart">
-               <div class="stats-display">
+        <div class="visualization-section">
+            <h2>Kapellbrücke Crowd Levels</h2>
+            
+            <div class="tower-container">
+                <!-- Tower Roof -->
+                <div class="tower-roof"></div>
+                
+                <!-- Tower Outline -->
+                <div class="tower-outline"></div>
+                
+                <!-- Tower Windows -->
+                <div class="tower-window window-1"></div>
+                <div class="tower-window window-2"></div>
+                <div class="tower-window window-3"></div>
+                <div class="tower-window window-4"></div>
+                
+                <!-- Beams -->
+                <div class="beam beam-1" id="beam-1"></div>
+                <div class="beam beam-2" id="beam-2"></div>
+                <div class="beam beam-3" id="beam-3"></div>
+                <div class="beam beam-4" id="beam-4"></div>
+                <div class="beam beam-5" id="beam-5"></div>
+                <div class="beam beam-6" id="beam-6"></div>
+                <div class="beam beam-7" id="beam-7"></div>
+                <div class="beam beam-8" id="beam-8"></div>
+            </div>
+            
+            <div class="stats-display">
                 <div class="stat-card">
                     <div class="stat-value" id="visitor-count">0</div>
                     <div class="stat-label">Visitors</div>
@@ -589,7 +522,20 @@
                     <div class="stat-label">To Visit</div>
                 </div>
             </div>
-             <!-- Comparison bars will be populated by JavaScript -->
+            
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color legend-green"></div>
+                    <span>Quiet (Under 50 people)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color legend-orange"></div>
+                    <span>Moderate (50-100 people)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color legend-red"></div>
+                    <span>Busy (Over 100 people)</span>
+                </div>
             </div>
         </div>
     </main>
@@ -597,46 +543,16 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-            const locations = [
-                {
-                    id: 'kapellbrücke',
-                    name: 'Kapellbrücke',
-                    description: 'The iconic Chapel Bridge and Water Tower'
-                },
-                {
-                    id: 'rathausquai',
-                    name: 'Rathausquai',
-                    description: 'The historic Old Town with its medieval architecture'
-                },
-                {
-                    id: 'löwendenkmal',
-                    name: 'Löwendenkmal',
-                    description: 'The famous Lion of Lucerne rock relief'
-                },
-                {
-                    id: 'schwanenplatz',
-                    name: 'Schwanenplatz',
-                    description: 'Central square with shopping and cafes'
-                },
-                {
-                    id: 'hertensteinstrasse',
-                    name: 'Hertensteinstrasse',
-                    description: 'Lakeside promenade with beautiful views'
-                }
-            ];
-            
             const slider = document.getElementById('day-slider');
             const selectedDayElement = document.getElementById('selected-day');
             const dayMarkersContainer = document.getElementById('day-markers');
-            const comparisonChartContainer = document.getElementById('comparison-chart');
-            const comparisonDayElement = document.getElementById('comparison-day');
             const visitorCountElement = document.getElementById('visitor-count');
             const crowdStatusElement = document.getElementById('crowd-status');
             const recommendationElement = document.getElementById('recommendation');
             
             let selectedDayIndex = 0;
             
-            // Generate sample visitor data for all locations and days
+            // Generate sample visitor data for Kapellbrücke
             const visitorData = generateVisitorData();
             
             // Create day markers
@@ -653,7 +569,6 @@
             function updateDayDisplay() {
                 const dayName = dayNames[selectedDayIndex];
                 selectedDayElement.textContent = dayName;
-                comparisonDayElement.textContent = dayName;
                 
                 // Update active day marker
                 document.querySelectorAll('.day-marker').forEach((marker, index) => {
@@ -666,15 +581,11 @@
                 
                 // Update tower visualization
                 updateTowerVisualization();
-                
-                // Update comparison chart
-                updateComparisonChart();
             }
             
             // Update tower visualization based on visitor count
             function updateTowerVisualization() {
-                const locationData = visitorData['kapellbrücke'];
-                const dayData = locationData.days[selectedDayIndex];
+                const dayData = visitorData[selectedDayIndex];
                 const visitorCount = dayData.visitors;
                 
                 // Update visitor count
@@ -686,7 +597,7 @@
                     status = "Quiet";
                     statusClass = "beam-green";
                     recommendation = "Good";
-                } else if (visitorCount < 100) {
+                } else if (visitorCount <= 100) {
                     status = "Moderate";
                     statusClass = "beam-orange";
                     recommendation = "Moderate";
@@ -717,38 +628,6 @@
                 });
             }
             
-            // Update comparison chart for selected day
-            function updateComparisonChart() {
-                comparisonChartContainer.innerHTML = '';
-                
-                locations.forEach((location, index) => {
-                    const locationData = visitorData[location.id];
-                    const dayData = locationData.days[selectedDayIndex];
-                    const visitorCount = dayData.visitors;
-                    
-                    // Determine color class based on visitor count
-                    let colorClass;
-                    if (visitorCount < 50) {
-                        colorClass = "location-bar-quiet";
-                    } else if (visitorCount < 100) {
-                        colorClass = "location-bar-moderate";
-                    } else {
-                        colorClass = "location-bar-busy";
-                    }
-                    
-                    const crowdBar = document.createElement('div');
-                    crowdBar.className = `location-bar ${colorClass}`;
-                    crowdBar.innerHTML = `<span>${location.name}: ${visitorCount} people</span>`;
-                    
-                    // Set the width based on visitor count (scaled to max 150 people)
-                    const maxVisitors = 150;
-                    const widthPercentage = Math.min(100, (visitorCount / maxVisitors) * 100);
-                    crowdBar.querySelector('span').style.width = `${widthPercentage}%`;
-                    
-                    comparisonChartContainer.appendChild(crowdBar);
-                });
-            }
-            
             // Event listener for slider
             slider.addEventListener('input', function() {
                 selectedDayIndex = parseInt(this.value);
@@ -760,60 +639,25 @@
             
             // Helper function to generate sample visitor data
             function generateVisitorData() {
-                const data = {};
+                const data = [];
                 
-                locations.forEach(location => {
-                    data[location.id] = {
-                        name: location.name,
-                        days: []
-                    };
+                dayNames.forEach(day => {
+                    let baseVisitors;
                     
-                    dayNames.forEach(day => {
-                        // Generate random visitor count with some pattern based on location and day
-                        let baseVisitors;
-                        
-                        // Different locations have different visitor patterns
-                        if (location.id === 'kapellbrücke') {
-                            // Chapel Bridge is busy on weekends
-                            if (day === 'Saturday' || day === 'Sunday') {
-                                baseVisitors = 100 + Math.random() * 50;
-                            } else {
-                                baseVisitors = 40 + Math.random() * 40;
-                            }
-                        } else if (location.id === 'rathausquai') {
-                            // Old Town is moderately busy most days
-                            if (day === 'Saturday') {
-                                baseVisitors = 80 + Math.random() * 40;
-                            } else if (day === 'Sunday') {
-                                baseVisitors = 60 + Math.random() * 30;
-                            } else {
-                                baseVisitors = 50 + Math.random() * 30;
-                            }
-                        } else if (location.id === 'löwendenkmal') {
-                            // Lion Monument is popular but not extremely crowded
-                            baseVisitors = 40 + Math.random() * 40;
-                        } else if (location.id === 'schwanenplatz') {
-                            // Central square is busy during shopping hours
-                            if (day === 'Saturday') {
-                                baseVisitors = 90 + Math.random() * 40;
-                            } else {
-                                baseVisitors = 60 + Math.random() * 40;
-                            }
-                        } else if (location.id === 'hertensteinstrasse') {
-                            // Lakeside promenade is popular on nice days
-                            if (day === 'Saturday' || day === 'Sunday') {
-                                baseVisitors = 70 + Math.random() * 40;
-                            } else {
-                                baseVisitors = 30 + Math.random() * 30;
-                            }
-                        }
-                        
-                        const visitors = Math.round(baseVisitors);
-                        
-                        data[location.id].days.push({
-                            day: day,
-                            visitors: visitors
-                        });
+                    // Different days have different visitor patterns
+                    if (day === 'Monday' || day === 'Tuesday' || day === 'Wednesday') {
+                        baseVisitors = 30 + Math.random() * 40; // Quieter days
+                    } else if (day === 'Thursday' || day === 'Friday') {
+                        baseVisitors = 60 + Math.random() * 50; // Moderate days
+                    } else {
+                        baseVisitors = 100 + Math.random() * 80; // Busier days
+                    }
+                    
+                    const visitors = Math.round(baseVisitors);
+                    
+                    data.push({
+                        day: day,
+                        visitors: visitors
                     });
                 });
                 
@@ -823,10 +667,3 @@
     </script>
 </body>
 </html>
-
-<input type="date" name="datepicker" id="datepicker">
-
-
-
-
-

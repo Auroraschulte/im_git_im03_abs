@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to avoid people in Lucerne</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+            --success-color: #2ecc71;
+            --quiet-color: #2ecc71;
+            --moderate-color: #f39c12;
+            --busy-color: #e74c3c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: var(--primary-color);
+            line-height: 1.6;
+        }
+        
+        .lucerne-app {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .hero {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .hero h1, .hero h2 {
+            display: inline;
+            font-size: 3rem;
+            line-height: 1.2;
+        }
+        
+        .hero h1 {
+            color: var(--primary-color);
+            font-weight: 300;
+        }
+        
+        .hero h2 {
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            margin-top: 1.5rem;
+            font-size: 1.2rem;
+            color: var(--dark-color);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .slider-container {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .slider-header h2 {
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+        }
+        
+        .selected-day {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .slider-wrapper {
+            position: relative;
+            margin: 2rem 0;
+        }
+        
+        .slider-track {
+            height: 8px;
+            background-color: var(--light-color);
+            border-radius: 4px;
+            position: relative;
+        }
+        
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: transparent;
+            outline: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--secondary-color);
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+        
+        .slider::-moz-range-thumb {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--secondary-color);
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+        
+        .day-markers {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+        
+        .day-marker {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--dark-color);
+            width: 14.28%;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+        
+        .day-marker.active {
+            font-weight: bold;
+            color: var(--secondary-color);
+            transform: scale(1.1);
+        }
+        
+        .comparison-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .comparison-section h2 {
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .comparison-chart {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 1rem;
+        }
+        
+        .location-bar {
+            height: 40px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            color: white;
+            font-weight: bold;
+            overflow: hidden;
+        }
+        
+        .location-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background-color: inherit;
+            opacity: 0.8;
+            z-index: 1;
+        }
+        
+        .location-bar span {
+            position: relative;
+            z-index: 2;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        .location-bar:hover {
+            transform: translateX(5px);
+        }
+        
+        .location-1 {
+            background-color: #3498db;
+        }
+        
+        .location-1::before {
+            width: 35%;
+        }
+        
+        .location-2 {
+            background-color: #e74c3c;
+        }
+        
+        .location-2::before {
+            width: 65%;
+        }
+        
+        .location-3 {
+            background-color: #2ecc71;
+        }
+        
+        .location-3::before {
+            width: 25%;
+        }
+        
+        .location-4 {
+            background-color: #f39c12;
+        }
+        
+        .location-4::before {
+            width: 50%;
+        }
+        
+        .location-5 {
+            background-color: #9b59b6;
+        }
+        
+        .location-5::before {
+            width: 75%;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        
+        .status-quiet {
+            background-color: rgba(46, 204, 113, 0.2);
+            color: var(--quiet-color);
+        }
+        
+        .status-moderate {
+            background-color: rgba(243, 156, 18, 0.2);
+            color: var(--moderate-color);
+        }
+        
+        .status-busy {
+            background-color: rgba(231, 76, 60, 0.2);
+            color: var(--busy-color);
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1, .hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .slider-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1, .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .slider-container, .comparison-section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="lucerne-app">
+        <section class="hero">
+            <h1>How to avoid </h1><h2>people</h2>
+            <h1> in </h1>
+            <h2>Lucerne</h2>
+            
+            <p class="subtitle">
+                Do you want peaceful moments, stunning photos and a more relaxed Lucerne experience? 
+                <br>Slide through the week to avoid the crowds.
+            </p>
+        </section>
+
+        <div class="slider-container">
+            <div class="slider-header">
+                <h2>Select a Day</h2>
+                <div class="selected-day" id="selected-day">Monday</div>
+            </div>
+                        
+            <div class="slider-wrapper">
+                <div class="slider-track"></div>
+                <input type="range" min="0" max="6" value="0" class="slider" id="day-slider">
+            </div>
+                        
+            <div class="day-markers" id="day-markers">
+                <!-- Day markers will be populated by JavaScript -->
+            </div>
+        </div>
+        
+        <div class="comparison-section">
+            <h2>Location Comparison for <span id="comparison-day">Monday</span></h2>
+            <div class="comparison-chart" id="comparison-chart">
+                <!-- Comparison bars will be populated by JavaScript -->
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+            const locations = [
+                {
+                    id: 'kapellbrücke',
+                    name: 'Kapellbrücke',
+                    description: 'The iconic Chapel Bridge and Water Tower',
+                    color: '#3498db'
+                },
+                {
+                    id: 'rathausquai',
+                    name: 'Rathausquai',
+                    description: 'The historic Old Town with its medieval architecture',
+                    color: '#e74c3c'
+                },
+                {
+                    id: 'löwendenkmal',
+                    name: 'Löwendenkmal',
+                    description: 'The famous Lion of Lucerne rock relief',
+                    color: '#2ecc71'
+                },
+                {
+                    id: 'schwanenplatzs',
+                    name: 'Schwanenplatz',
+                    description: 'The majestic mountain with panoramic views',
+                    color: '#f39c12'
+                },
+                {
+                    id: 'hertensteinstrasse',
+                    name: 'Hertensteinstrasse',
+                    description: 'Swiss Museum of Transport with interactive exhibits',
+                    color: '#9b59b6'
+                }
+            ];
+            
+            const slider = document.getElementById('day-slider');
+            const selectedDayElement = document.getElementById('selected-day');
+            const dayMarkersContainer = document.getElementById('day-markers');
+            const comparisonChartContainer = document.getElementById('comparison-chart');
+            const comparisonDayElement = document.getElementById('comparison-day');
+            
+            let selectedDayIndex = 0;
+            
+            // Generate sample crowd data for all locations and days
+            const crowdData = generateCrowdData();
+            
+            // Create day markers
+            dayNames.forEach((day, index) => {
+                const marker = document.createElement('div');
+                marker.className = 'day-marker';
+                if (index === 0) marker.classList.add('active');
+                marker.textContent = day.substring(0, 3);
+                marker.dataset.index = index;
+                dayMarkersContainer.appendChild(marker);
+            });
+            
+            // Update display based on selected day
+            function updateDayDisplay() {
+                const dayName = dayNames[selectedDayIndex];
+                selectedDayElement.textContent = dayName;
+                comparisonDayElement.textContent = dayName;
+                
+                // Update active day marker
+                document.querySelectorAll('.day-marker').forEach((marker, index) => {
+                    if (index === selectedDayIndex) {
+                        marker.classList.add('active');
+                    } else {
+                        marker.classList.remove('active');
+                    }
+                });
+                
+                // Update comparison chart
+                updateComparisonChart();
+            }
+            
+            // Update comparison chart for selected day
+            function updateComparisonChart() {
+                comparisonChartContainer.innerHTML = '';
+                
+                locations.forEach((location, index) => {
+                    const locationData = crowdData[location.id];
+                    const dayData = locationData.days[selectedDayIndex];
+                    
+                    const crowdBar = document.createElement('div');
+                    crowdBar.className = `location-bar location-${index + 1}`;
+                    crowdBar.style.backgroundColor = location.color;
+                    crowdBar.innerHTML = `<span>${location.name}: ${dayData.crowdLevel}%</span>`;
+                    
+                    // Set the width based on crowd level
+                    crowdBar.querySelector('span').style.width = `${dayData.crowdLevel}%`;
+                    
+                    comparisonChartContainer.appendChild(crowdBar);
+                });
+            }
+            
+            // Event listener for slider
+            slider.addEventListener('input', function() {
+                selectedDayIndex = parseInt(this.value);
+                updateDayDisplay();
+            });
+            
+            // Initialize display
+            updateDayDisplay();
+            
+            // Helper function to generate sample crowd data
+            function generateCrowdData() {
+                const data = {};
+                
+                locations.forEach(location => {
+                    data[location.id] = {
+                        name: location.name,
+                        days: []
+                    };
+                    
+                    dayNames.forEach(day => {
+                        // Generate random crowd level with some pattern based on location and day
+                        let baseLevel;
+                        
+                        // Different locations have different crowd patterns
+                        if (location.id === 'kapellbrücke') {
+                            // Chapel Bridge is busy on weekends
+                            if (day === 'Saturday' || day === 'Sunday') {
+                                baseLevel = 70 + Math.random() * 25;
+                            } else {
+                                baseLevel = 40 + Math.random() * 30;
+                            }
+                        } else if (location.id === 'rathausquai') {
+                            // Old Town is moderately busy most days
+                            if (day === 'Saturday') {
+                                baseLevel = 80 + Math.random() * 15;
+                            } else if (day === 'Sunday') {
+                                baseLevel = 60 + Math.random() * 25;
+                            } else {
+                                baseLevel = 50 + Math.random() * 30;
+                            }
+                        } else if (location.id === 'löwendenkmal') {
+                            // Lion Monument is popular but not extremely crowded
+                            baseLevel = 40 + Math.random() * 40;
+                        } else if (location.id === 'hertensteinstrasse') {
+                            // Mount Pilatus is busy on clear weather days (simulated)
+                            if (day === 'Saturday' || day === 'Sunday') {
+                                baseLevel = 75 + Math.random() * 20;
+                            } else {
+                                baseLevel = 50 + Math.random() * 25;
+                            }
+                        } else if (location.id === 'schwanenplatz') {
+                            // Transport Museum is family-friendly, busy on weekends
+                            if (day === 'Saturday' || day === 'Sunday') {
+                                baseLevel = 65 + Math.random() * 25;
+                            } else {
+                                baseLevel = 35 + Math.random() * 30;
+                            }
+                        }
+                        
+                        const crowdLevel = Math.min(100, Math.max(10, Math.round(baseLevel)));
+                        
+                        data[location.id].days.push({
+                            day: day,
+                            crowdLevel: crowdLevel
+                        });
+                    });
+                });
+                
+                return data;
+            }
+        });
+    </script>
+</body>
+</html>
