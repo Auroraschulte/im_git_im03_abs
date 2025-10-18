@@ -1,0 +1,339 @@
+:root {
+ --primary-color: #248BCC;
+ --secondary-color: white;
+ --accent-color: #e74c3c;
+ --light-color: #e3e6e6;
+ --dark-color: #34495e;
+ --success-color: #2ecc71;
+ --quiet-color: #2ecc71;
+ --moderate-color: #f39c12;
+ --busy-color: #e74c3c;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+ background-color: var(--primary-color);
+ color: var(--primary-color);
+ line-height: 1.6;
+}
+
+.lucerne {
+ max-width: 800px;
+ margin: 0 auto;
+ padding: 2rem 1rem;
+}
+             
+.hero {
+ text-align: center;
+  margin-bottom: 3rem;
+}
+        
+.hero h1, .hero h2 {
+ display: inline;
+ font-size: 3rem;
+ line-height: 1.2;
+}
+        
+.hero h1 {
+ color: var(--secondary-color);
+ font-weight: 300;
+}
+        
+.hero h2 {
+ color: var(--secondary-color);
+ font-weight: 700;
+}
+        
+.subtitle {
+ margin-top: 1.5rem;
+ font-size: 1.2rem;
+ color: var(--light-color);
+ max-width: 600px;
+ margin-left: auto;
+ margin-right: auto;
+}
+        
+.slidecontainer {
+  width: 100%; /* Width of the outside container */
+}
+
+/* The slider itself */
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 15px;
+  border-radius: 5px;  
+  background: var(--light-color);
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+ /*Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: white; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  border-radius: 100%;
+}
+
+.day-markers {
+ display: flex;
+ justify-content: space-between;
+ margin-top: 1rem;
+}
+        
+.day-marker {
+ text-align: center;
+ font-size: 0.9rem;
+ color: var(--light-color);
+ width: 14.28%;
+ padding: 0.5rem 0;
+ transition: all 0.3s ease;
+}
+        
+.day-marker.active {
+ font-weight: bold;
+ color: var(--secondary-color);
+ transform: scale(1.1);
+}
+
+.comparison-section {
+    background: #248BCC;
+    border-radius: 15px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+        
+.comparison-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    opacity: 0.3;
+    z-index: 0;
+}
+        
+.comparison-section h2 {
+    color: white;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.location-bar-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 70px;
+            height: 100%;
+        }
+        
+.location-bar {
+            width: 50px;
+            border-radius: 8px 8px 0 0;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 10px;
+            color: white;
+            font-weight: bold;
+            position: relative;
+            min-height: 40px;
+        }
+        
+.location-bar span {
+            position: relative;
+            z-index: 2;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            font-size: 0.9rem;
+        }
+        
+ .location-label {
+            margin-top: 10px;
+            color: white;
+            font-size: 0.8rem;
+            text-align: center;
+            font-weight: bold;
+            position: relative;
+            z-index: 1;
+        }
+        
+.location-bar:hover {
+            transform: translateY(-5px);
+            filter: brightness(1.1);
+        }
+        
+.location-bar-quiet {
+            background-color: var(--quiet-color);
+        }
+        
+.location-bar-moderate {
+            background-color: var(--moderate-color);
+        }
+        
+.location-bar-busy {
+            background-color: var(--busy-color);
+        }
+        
+.status-indicator {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        
+.status-quiet {
+            background-color: rgba(46, 204, 113, 0.2);
+            color: var(--quiet-color);
+        }
+        
+.status-moderate {
+            background-color: rgba(243, 156, 18, 0.2);
+            color: var(--moderate-color);
+        }
+        
+.status-busy {
+            background-color: rgba(231, 76, 60, 0.2);
+            color: var(--busy-color);
+        }
+        
+.loading {
+            text-align: center;
+            color: white;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        
+.comparison-chart {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    height: px;
+    margin-top: 1rem;
+    position: relative;
+    z-index: 1;
+    padding: 0 10px;
+}
+
+.stats-display {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+ .stat-card {
+    background-color: var(--light-color);
+    padding: 1.5rem;
+    border-radius: 10px;
+    text-align: center;
+    min-width: 150px;
+}
+        
+.stat-value {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+        
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--light-color);
+}
+
+ @media (max-width: 768px) {
+            .hero h1, .hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .slider-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .comparison-chart {
+                height: 220px;
+            }
+            
+            .location-bar-container {
+                width: 60px;
+            }
+            
+            .location-bar {
+                width: 45px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1, .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .slider-container, .comparison-section {
+                padding: 1.5rem;
+            }
+            
+            .stats-display {
+                gap: 1rem;
+            }
+            
+            .stat-card {
+                padding: 1rem;
+                min-width: 120px;
+            }
+            
+            .comparison-chart {
+                height: 200px;
+            }
+            
+            .location-bar-container {
+                width: 50px;
+            }
+            
+            .location-bar {
+                width: 40px;
+                font-size: 0.8rem;
+            }
+            
+            .location-label {
+                font-size: 0.7rem;
+            }
+        }

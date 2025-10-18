@@ -3,7 +3,7 @@ async function getWeeklyAverages() {
         // Daten von der API abrufen
         const response = await fetch('https://im03.aurora-schulte.ch/backend/api/getAll.php');
         const data = await response.json();
-
+        console.log('data?', data);
         // Daten nach Timestamp sortieren (neueste zuerst)
         data.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
