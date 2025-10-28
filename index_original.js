@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const crowdStatusElement = document.getElementById('crowd-status');
     const recommendationElement = document.getElementById('recommendation');
     
-    let selectedDayIndex = 0;
+    let selectedDayIndex = 1;
 
     // Check if slider exists
     if (slider && output) {
@@ -360,4 +360,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Start initialization
     initializeData();
-});
+
+
+})
