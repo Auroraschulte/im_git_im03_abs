@@ -195,13 +195,13 @@ document.addEventListener('DOMContentLoaded', function() {
             dayNames.forEach(day => {
                 let baseVisitors;
                 
-                if (location.id === 'kapellbrücke') {
-                    if (day === 'Saturday' || day === 'Sunday') {
-                        baseVisitors = 100 + Math.random() * 50;
-                    } else {
-                        baseVisitors = 40 + Math.random() * 40;
-                    }
-                } else if (location.id === 'rathausquai') {
+            if (location.id === 'kapellbrücke') {
+             if (day === 'Saturday' || day === 'Sunday') {
+              baseVisitors = 100 + Math.random() * 50;
+             } else {
+              baseVisitors = 40 + Math.random() * 40;
+             }
+              } else if (location.id === 'rathausquai') {
                     if (day === 'Saturday') {
                         baseVisitors = 80 + Math.random() * 40;
                     } else if (day === 'Sunday') {
@@ -264,11 +264,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const visitorCount = dayData.visitors;
         
         let status, statusClass, recommendation;
-        if (visitorCount < 50) {
+        if (visitorCount < 40) {
             status = "Quiet";
             statusClass = "status-quiet";
             recommendation = "Good";
-        } else if (visitorCount < 100) {
+        } else if (visitorCount < 70) {
             status = "Moderate";
             statusClass = "status-moderate";
             recommendation = "Moderate";
@@ -316,16 +316,15 @@ document.addEventListener('DOMContentLoaded', function() {
             crowdBar.className = "location-bar " + colorClass;
     
     // Höhe des Balkens abhängig von Besucherzahl
-    const minHeight = 80; // px, Basiswert für grün
-    const maxHeight = 2000; // px, für den höchsten Balken
+    const minHeight = 80; 
+    const maxHeight = 2000; 
     let height;
     if (visitorCount < 40) {
-      height = minHeight; // grün, kleiner Balken
+      height = minHeight; 
     } else if (visitorCount <= 70) {
       // Zwischenhöhe für orange
       height = minHeight + ((visitorCount - 40) / 90) * (maxHeight - minHeight) * 0.5 + 40;
     } else {
-      // Höchster Balken für rot
       height = maxHeight;
     }
     crowdBar.style.height = height + "px";
