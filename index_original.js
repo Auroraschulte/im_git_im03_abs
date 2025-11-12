@@ -283,7 +283,6 @@ document.addEventListener('DOMContentLoaded', function() {
         recommendationElement.textContent = recommendation;
     }
 
-    // Update comparison chart
     function updateComparisonChart() {
         comparisonChartContainer.innerHTML = '';
         
@@ -300,9 +299,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const visitorCount = dayData.visitors;
             
             let colorClass;
-            if (visitorCount < 50) {
+            if (visitorCount < 40) {
                 colorClass = "location-bar-quiet";
-            } else if (visitorCount < 100) {
+            } else if (visitorCount < 70) {
                 colorClass = "location-bar-moderate";
             } else {
                 colorClass = "location-bar-busy";
@@ -314,9 +313,22 @@ document.addEventListener('DOMContentLoaded', function() {
             const crowdBar = document.createElement('div');
             crowdBar.className = `location-bar ${colorClass}`;
             
-            const maxVisitors = 700;
-            const heightPercentage = Math.min(100, (visitorCount / maxVisitors) * 100);
-            crowdBar.style.height = `${heightPercentage}%`;
+            crowdBar.className = "location-bar " + colorClass;
+    
+    // Höhe des Balkens abhängig von Besucherzahl
+    const minHeight = 80; // px, Basiswert für grün
+    const maxHeight = 2000; // px, für den höchsten Balken
+    let height;
+    if (visitorCount < 40) {
+      height = minHeight; // grün, kleiner Balken
+    } else if (visitorCount <= 70) {
+      // Zwischenhöhe für orange
+      height = minHeight + ((visitorCount - 40) / 90) * (maxHeight - minHeight) * 0.5 + 40;
+    } else {
+      // Höchster Balken für rot
+      height = maxHeight;
+    }
+    crowdBar.style.height = height + "px";
             
             const barText = document.createElement('span');
             barText.textContent = `${visitorCount}`;

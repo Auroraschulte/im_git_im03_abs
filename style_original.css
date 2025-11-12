@@ -162,7 +162,7 @@
             transform: scale(1.1);
 }
 
- .stats-display {
+.stats-display {
             margin-top: 2rem;
             display: flex;
             justify-content: center;
@@ -170,7 +170,7 @@
             flex-wrap: wrap;
         }
         
-        .stat-card {
+.stat-card {
             background-color: var(--light-color);
             padding: 1.5rem;
             border-radius: 10px;
@@ -178,13 +178,13 @@
             min-width: 150px;
         }
         
-        .stat-value {
+.stat-value {
             font-size: 2rem;
             font-weight: bold;
             margin-bottom: 0.5rem;
         }
         
-        .stat-label {
+.stat-label {
             font-size: 0.9rem;
             color: var(--light-color);
         }
@@ -195,16 +195,14 @@
             padding: 2rem;
             margin-bottom: 2rem;
             position: relative;
-            overflow: hidden;
-        }
+            overflow: visible ;
+}
         
 .comparison-section::before {
-            content: '';
+            
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
             background-size: cover;
             background-position: center;
             opacity: 0.3;
@@ -226,7 +224,7 @@
             margin-top: 1rem;
             position: relative;
             z-index: 1;
-            padding: 10px;
+            /*padding: 10px;*/
             
         }
 .location-bar-container {
@@ -248,7 +246,7 @@
             color: white;
             font-weight: bold;
             position: relative;
-            min-height: 40px;
+            
         }
 .location-bar span {
             position: relative;
@@ -287,8 +285,8 @@
   position: relative;
   background: url('image/Skizze_Kapellbruecke.png') no-repeat center center;
   background-size: cover;
-  width: 600px;       /* nach Bedarf */
-  height: 800px;      /* nach Bedarf */
+  overflow: visible;
+  
 }   
         
 .status-indicator {
@@ -297,17 +295,17 @@
             border-radius: 20px;
             font-size: 0.9rem;
             font-weight: bold;
-        }
+}
         
-        .status-quiet {
+.status-quiet {
             background-color: rgba(46, 204, 113, 0.2);
             color: var(--quiet-color);
-        }
+}
         
-        .status-moderate {
-            background-color: rgba(243, 156, 18, 0.2);
-            color: var(--moderate-color);
-        }
+.status-moderate {
+    background-color: rgba(243, 156, 18, 0.2);
+    color: var(--moderate-color);
+}
         
         .status-busy {
             background-color: rgba(231, 76, 60, 0.2);
