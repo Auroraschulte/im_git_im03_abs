@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     
-    // Locations definition
+    
     const locations = [
         {
             id: 'kapellbrücke',
@@ -182,61 +182,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return mapping[standort.toLowerCase()] || null;
     }
 
-    // Generate sample data as fallback
-    function generateSampleData() {
-        const data = {};
-        
-        locations.forEach(location => {
-            data[location.id] = {
-                name: location.name,
-                days: []
-            };
-            
-            dayNames.forEach(day => {
-                let baseVisitors;
-                
-            if (location.id === 'kapellbrücke') {
-             if (day === 'Saturday' || day === 'Sunday') {
-              baseVisitors = 100 + Math.random() * 50;
-             } else {
-              baseVisitors = 40 + Math.random() * 40;
-             }
-              } else if (location.id === 'rathausquai') {
-                    if (day === 'Saturday') {
-                        baseVisitors = 80 + Math.random() * 40;
-                    } else if (day === 'Sunday') {
-                        baseVisitors = 60 + Math.random() * 30;
-                    } else {
-                        baseVisitors = 50 + Math.random() * 30;
-                    }
-                } else if (location.id === 'löwendenkmal') {
-                    baseVisitors = 40 + Math.random() * 40;
-                } else if (location.id === 'schwanenplatz') {
-                    if (day === 'Saturday') {
-                        baseVisitors = 90 + Math.random() * 40;
-                    } else {
-                        baseVisitors = 60 + Math.random() * 40;
-                    }
-                } else if (location.id === 'hertensteinstrasse') {
-                    if (day === 'Saturday' || day === 'Sunday') {
-                        baseVisitors = 70 + Math.random() * 40;
-                    } else {
-                        baseVisitors = 30 + Math.random() * 30;
-                    }
-                }
-                
-                const visitors = Math.round(baseVisitors);
-                
-                data[location.id].days.push({
-                    day: day,
-                    visitors: visitors
-                });
-            });
-        });
-        
-        return data;
-    }
-
     // Update day display
     function updateDayDisplay() {
         const dayName = dayNames[selectedDayIndex];
@@ -268,7 +213,7 @@ document.addEventListener('DOMContentLoaded', function() {
             status = "Quiet";
             statusClass = "status-quiet";
             recommendation = "Good";
-        } else if (visitorCount < 70) {
+        } else if (visitorCount < 90) {
             status = "Moderate";
             statusClass = "status-moderate";
             recommendation = "Moderate";
@@ -301,7 +246,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let colorClass;
             if (visitorCount < 40) {
                 colorClass = "location-bar-quiet";
-            } else if (visitorCount < 70) {
+            } else if (visitorCount < 90) {
                 colorClass = "location-bar-moderate";
             } else {
                 colorClass = "location-bar-busy";
@@ -316,12 +261,12 @@ document.addEventListener('DOMContentLoaded', function() {
             crowdBar.className = "location-bar " + colorClass;
     
     // Höhe des Balkens abhängig von Besucherzahl
-    const minHeight = 80; 
-    const maxHeight = 2000; 
+    const minHeight = 40; 
+    const maxHeight = 200; 
     let height;
     if (visitorCount < 40) {
       height = minHeight; 
-    } else if (visitorCount <= 70) {
+    } else if (visitorCount <= 90) {
       // Zwischenhöhe für orange
       height = minHeight + ((visitorCount - 40) / 90) * (maxHeight - minHeight) * 0.5 + 40;
     } else {
