@@ -188,25 +188,29 @@
         }
         
 .comparison-section {
-            background: #248BCC;
-            border-radius: 15px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            position: relative;
-            overflow: visible ;
+    /*background: #248BCC;*/
+    border-radius: 15px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: visible ;
 }
         
 .comparison-section::before {
-            
-            position: absolute;
-            top: 0;
-            left: 0;
-            background-size: cover;
-            background-position: center;
-            opacity: 0.3;
-            z-index: 0;
-        }
-        
+    content: "";
+    position: absolute;        
+    top: 0; left: 0; right: 0; bottom: 0;       
+    background: url('image/Skizze_Kapellbruecke.png') no-repeat center center;
+    background-size: cover;
+    opacity: 0.35;
+    z-index: 0;
+    border-radius: 15px;
+}
+.comparison-section > * {
+  position: relative;
+  z-index: 1;
+}
+     
 .comparison-section h2 {
             color: white;
             margin-bottom: 1.5rem;
@@ -216,12 +220,12 @@
         }
         
 .comparison-chart {
-            display: flex;
-            justify-content: space-around;
-            align-items: flex-end;
-            margin-top: 1rem;
-            position: relative;
-            z-index: 1;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    margin-top: 1rem;
+    position: relative;
+    z-index: 2;
             /*padding: 10px;*/
             
         }
@@ -244,6 +248,9 @@
             color: white;
             font-weight: bold;
             position: relative;
+            transition: all 0.3s cubic-bezier(.4,2,.4,1);
+            box-shadow 0.2s;
+            cursor: pointer;
             
         }
 .location-bar span {
@@ -263,11 +270,12 @@
             z-index: 1;
         }
         
-.location-bar:hover {
-            transform: translateY(-5px);
-            filter: brightness(1.1);
-        }
-        
+.location-bar:hover, .location-bar.active-bar {
+    transform: scale(1.15) translateY(-12px);
+    filter: brightness(1.15);
+    box-shadow: 0 10px 24px 0 rgba(44,56,72,0.15);
+    z-index: 5;
+}
 .location-bar-quiet {
             background-color: var(--quiet-color);
         }
@@ -286,6 +294,17 @@
   overflow: visible;
   
 }   
+.recommendation-box {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  min-height: 60px;
+  font-size: 1rem;
+  color: #222;
+}
+
         
 .status-indicator {
             display: inline-block;
@@ -441,3 +460,64 @@
   color: white;
 }
 
+.comparison-section {
+    border-radius: 15px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: visible;
+}
+.comparison-section::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url('image/Skizze_Kapellbruecke.jpg') no-repeat center center;
+    background-size: cover;
+    opacity: 0.35;
+    z-index: 0;
+    border-radius: 15px;
+}
+.comparison-section > * {
+  position: relative;
+  z-index: 1;
+}
+.comparison-chart {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    margin-top: 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+.location-bar {
+    width: 50px;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 10px;
+    color: white;
+    font-weight: bold;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(.4,2,.4,1), box-shadow 0.2s;
+}
+
+.location-bar:hover, .location-bar.active-bar {
+    transform: scale(1.15) translateY(-12px);
+    filter: brightness(1.15);
+    box-shadow: 0 10px 24px 0 rgba(44,56,72,0.15);
+    z-index: 5;
+}
+
+.recommendation-box {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  min-height: 60px;
+  font-size: 1rem;
+  color: #222;
+}
