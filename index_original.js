@@ -275,54 +275,26 @@ function getRecommendationText(shortName, visitors, bestHourText) {
 }
 
 // STUNDE MIT AM/PM & OHNE NACHTSTUNDEN
-function getTimeSlotsFromStats(hourObj) {
-  // 1. Besucher-Durchschnitte für jede Stunde zwischen 7 - 22 Uhr berechnen
-  let hourlyAverages = [];
-  for (let h = 7; h <= 22; h++) {
-    const visitorsList = hourObj[h] || [];
-    if (visitorsList.length === 0) continue; // keine Daten, überspringen
-    const avg = visitorsList.reduce((a, b) => a + b, 0) / visitorsList.length;
-    hourlyAverages.push({ hour: h, avg });
+function getBestHourFromStatsWithAmPm(hourObj) {
+  let bestHour = null;
+  let minAvg = Infinity;
+  for (let h = 7; h < 22; h++) { // nur 07 - 22 Uhr prüfen
+      const visitorsList = hourObj[h] || [];
+      if (visitorsList.length === 0) continue;
+      const avg = visitorsList.reduce((a, b) => a + b, 0) / visitorsList.length;
+      if (avg < minAvg) {
+          minAvg = avg;
+          bestHour = h;
+      }
   }
-  if (hourlyAverages.length === 0) return { recommend: [], avoid: [] };
-
-  // 2. Sortieren nach Besucherzahl
-  hourlyAverages.sort((a, b) => a.avg - b.avg);
-
-  // 3. Die ersten 2–3 ruhigsten Stunden, die letzten als "avoid"
-  const recommendedSlots = hourlyAverages.slice(0, 3).map(e => hourToAmPm(e.hour));
-  const avoidSlot = hourToAmPm(hourlyAverages[hourlyAverages.length - 1].hour);
-
-  return { recommend: recommendedSlots, avoid: avoidSlot };
+  return bestHour !== null ? hourToAmPm(bestHour) : 'No quiet hour found';
 }
 
-// Hilfsfunktion für AM/PM-Format
+// Hilfsfunktion: Format zu "08:00 AM" / "03:00 PM"
 function hourToAmPm(hour) {
   let period = (hour < 12) ? 'AM' : 'PM';
   let displayHour = (hour === 0) ? 12 : (hour <= 12 ? hour : hour - 12);
   return (`${displayHour.toString().padStart(2,'0')}:00 ${period}`);
-}
-
-function getRecommendationText(shortName, visitors, slotInfo) {
-  // slotInfo = { recommend: [...], avoid: ... }
-  let recommendTimes = slotInfo.recommend.length > 0
-    ? slotInfo.recommend.join(', ')
-    : 'No time slots available';
-  let avoidTime = slotInfo.avoid || 'No slot';
-
-  let msg = `<b>${shortName}:</b>`;
-
-  if (visitors < 40) {
-    msg += ` Low attendance – great moment to visit!`;
-  } else if (visitors < 90) {
-    msg += ` Moderate attendance – for less crowd, pick a non-peak hour.`;
-  } else {
-    msg += ` Very crowded – avoid peak!`;
-  }
-  msg += `<br><b>Recommended time slots:</b> ${recommendTimes}`;
-  msg += `<br><span style="color:#e74c3c;"><b>Avoid (peak):</b> ${avoidTime}</span>`;
-
-  return msg;
 }
 
 function showRecommendationBox(text) {
@@ -330,18 +302,40 @@ function showRecommendationBox(text) {
   box.innerHTML = text;
 }
 
-// In updateComparisonChart:
-crowdBar.addEventListener('click', function() {
-  document.querySelectorAll('.location-bar').forEach(bar => bar.classList.remove('active-bar'));
-  crowdBar.classList.add('active-bar');
 
-  let slotInfo = { recommend: [], avoid: '' };
-  if (hourlyStats && hourlyStats[location.id]) {
-    slotInfo = getTimeSlotsFromStats(hourlyStats[location.id]);
+// Hilfsfunktionen global:
+function getRecommendationText(shortName, visitors, bestHourText) {
+  if (visitors < 40) {
+    return `<b>${shortName}:</b> Low attendance – great moment to visit! ${bestHourText}`;
+  } else if (visitors < 90) {
+    return `<b>${shortName}:</b> Moderate attendance – for less crowd, pick a non-peak hour. ${bestHourText}`;
+  } else {
+    return `<b>${shortName}:</b> Very crowded – avoid peak! ${bestHourText}`;
   }
-  const recommendationText = getRecommendationText(location.shortName, visitorCount, slotInfo);
-  showRecommendationBox(recommendationText);
-});
+}
+
+function getBestHourFromStats(hourObj) {
+  let bestHour = null;
+  let minAvg = Infinity;
+  for (let h = 0; h < 24; h++) {
+      const visitorsList = hourObj[h] || [];
+      if (visitorsList.length === 0) continue;
+      const avg = visitorsList.reduce((a, b) => a + b, 0) / visitorsList.length;
+      if (avg < minAvg) {
+          minAvg = avg;
+          bestHour = h;
+      }
+  }
+  return bestHour !== null ? (bestHour.toString().padStart(2,'0')+':00') : 'No quiet hour found';
+}
+
+// HTML für Formatierung (b, br):
+function showRecommendationBox(text) {
+  const box = document.getElementById('recommendation-box');
+  box.innerHTML = text;
+}
+
+// ... Rest deiner Daten- und Initialisierung wie gehabt!
 
 
     async function initializeData() {
