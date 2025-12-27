@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>crowded Lucerne</title>
 </head>
-<link rel="stylesheet" href="style_original.css">
-<!--style_original.css-->
+<link rel="stylesheet" href="index.css">
+
 <body>
     <main class="lucerne">
     <section class="hero">
@@ -26,10 +26,14 @@
              <div class="selected-day" id="selected-day">Monday</div>
         </div>
         <div class="slider-wrapper">
-            <input type="range" min="0" max="6" value="0" class="slider" id="myRange">
-             <div class="day-markers" id="day-markers">
-                
-            </div> 
+            <input type="range" 
+                   id="day-slider" 
+                   class="slider" 
+                   min="0" 
+                   max="6" 
+                   step="1" 
+                   value="0">
+             <div class="day-markers" id="day-markers"></div> 
         </div>
     </div>
    <div class="comparison-section">
@@ -39,7 +43,7 @@
 </div>
 
 
-       <div class="stats-display"></div>
+    <div class="stats-display"></div>
             <div class="stat-card">
                 <div class="stat-value" id="crowd-status">-</div>
                 <div class="stat-label">Status</div>
@@ -51,7 +55,7 @@
             </div> 
     </div>
     </main>
-<script src="index_original.js"></script>  
+<script src="index.js"></script>  
 
 </body>
 </html>

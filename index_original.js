@@ -15,15 +15,14 @@ document.addEventListener('DOMContentLoaded', function() {
     let hourlyStats = null; // Will hold API hourly stats
 
     // DOM Elements
-    const slider = document.getElementById("myRange");
-    const output = document.getElementById("selected-day");
-    const selectedDayElement = document.getElementById('selected-day');
+   const selectedDayElement = document.getElementById('selected-day');
     const dayMarkersContainer = document.getElementById('day-markers');
     const comparisonChartContainer = document.getElementById('comparison-chart');
     const comparisonDayElement = document.getElementById('comparison-day');
+    const visitorCountElement = document.getElementById('visitor-count');
     const crowdStatusElement = document.getElementById('crowd-status');
     const recommendationElement = document.getElementById('recommendation');
-    const recommendationBox = document.getElementById('recommendation-box');
+    
     let selectedDayIndex = 1;
 
     if (slider && output) {

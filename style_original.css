@@ -249,7 +249,7 @@
             font-weight: bold;
             position: relative;
             transition: all 0.3s cubic-bezier(.4,2,.4,1);
-            box-shadow 0.2s;
+            box-shadow 0,2s;
             cursor: pointer;
             
         }
@@ -287,13 +287,8 @@
 .location-bar-busy {
             background-color: var(--busy-color);
         }
-.bridge-background {
-  position: relative;
-  background: url('image/Skizze_Kapellbruecke.png') no-repeat center center;
-  background-size: cover;
-  overflow: visible;
+
   
-}   
 .recommendation-box {
   margin-top: 1rem;
   padding: 1rem;

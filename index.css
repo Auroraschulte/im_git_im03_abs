@@ -1,0 +1,306 @@
+/* KOMPLETTES CSS - KEINE BILDER + funktionale Balken */
+
+:root {
+    --primary-color: #248BCC;
+    --secondary-color: white;
+    --accent-color: #e74c3c;
+    --light-color: #e3e6e6;
+    --dark-color: #34495e;
+    --success-color: #2ecc71;
+    --quiet-color: #2ecc71;
+    --moderate-color: #f39c12;
+    --busy-color: #e74c3c;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--primary-color);
+    color: var(--primary-color);
+    line-height: 1.6;
+}
+
+.lucerne-app {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.hero {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.hero h1, .hero h2 {
+    display: inline;
+    font-size: 3rem;
+    line-height: 1.2;
+}
+
+.hero h1 {
+    color: var(--secondary-color);
+    font-weight: 300;
+}
+
+.hero h2 {
+    color: var(--secondary-color);
+    font-weight: 700;
+}
+
+.subtitle {
+    margin-top: 1.5rem;
+    font-size: 1.2rem;
+    color: var(--light-color);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.slider-container {
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.slider-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.slider-header h2 {
+    color: var(--secondary-color);
+    font-size: 1.5rem;
+}
+
+.selected-day {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
+.slider-wrapper {
+    position: relative;
+    margin: 2rem 0;
+    color: var(--secondary-color);
+}
+
+.slider-track {
+    height: 8px;
+    background-color: var(--light-color);
+    border-radius: 4px;
+    position: relative;
+}
+
+.slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    background: var(--secondary-color);
+    outline: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--secondary-color);
+    cursor: pointer;
+    border: 3px solid var(--primary-color);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.slider::-moz-range-thumb {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--secondary-color);
+    cursor: pointer;
+    border: 3px solid var(--primary-color);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.day-markers {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.day-marker {
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--light-color);
+    width: 14.28%;
+    padding: 0.5rem 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.day-marker.active {
+    font-weight: bold;
+    color: var(--secondary-color);
+    transform: scale(1.1);
+}
+
+.stats-display {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.stat-card {
+    background-color: var(--light-color);
+    padding: 1.5rem;
+    border-radius: 10px;
+    text-align: center;
+    min-width: 150px;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--dark-color);
+}
+
+/* ★ BALKEN-CHART - FUNKTIONIERT JETZT! */
+.comparison-section {
+    background: linear-gradient(135deg, var(--primary-color), #1e6ea8);
+    border-radius: 15px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.comparison-section h2 {
+    color: var(--secondary-color);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.comparison-chart {
+    display: flex !important;
+    justify-content: space-around !important;
+    align-items: flex-end !important;
+    height: 320px !important;
+    gap: 1rem;
+    padding: 1rem 0;
+}
+
+.location-bar-container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    height: 100% !important;
+    width: 70px;
+    cursor: pointer;
+}
+
+.location-bar {
+    width: 50px;
+    border-radius: 8px 8px 0 0;
+    transition: all 0.3s cubic-bezier(0.4,2,0.4,1);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 8px 4px 12px;
+    color: white !important;
+    font-weight: bold;
+    font-size: 0.85rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+    position: relative;
+    cursor: pointer;
+    flex-grow: 1;
+    min-height: 25px;
+}
+
+.location-label {
+    margin-top: 12px;
+    color: var(--secondary-color);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.location-bar:hover, .location-bar.active-bar {
+    transform: scale(1.12) translateY(-8px) !important;
+    filter: brightness(1.2);
+    z-index: 10;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+}
+
+.location-bar-quiet { background: var(--quiet-color) !important; }
+.location-bar-moderate { background: var(--moderate-color) !important; }
+.location-bar-busy { background: var(--busy-color) !important; }
+
+.recommendation-box {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    min-height: 60px;
+    font-size: 1rem;
+    color: #222;
+}
+
+.status-indicator {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.status-quiet { background-color: rgba(46, 204, 113, 0.2); color: var(--quiet-color); }
+.status-moderate { background-color: rgba(243, 156, 18, 0.2); color: var(--moderate-color); }
+.status-busy { background-color: rgba(231, 76, 60, 0.2); color: var(--busy-color); }
+
+.loading {
+    text-align: center;
+    color: var(--secondary-color);
+    padding: 2rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .hero h1, .hero h2 { font-size: 2.5rem; }
+    .slider-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .comparison-chart { height: 260px !important; }
+    .location-bar-container { width: 60px; }
+    .location-bar { width: 45px; font-size: 0.8rem; }
+}
+
+@media (max-width: 480px) {
+    .hero h1, .hero h2 { font-size: 2rem; }
+    .subtitle { font-size: 1rem; }
+    .slider-container, .comparison-section { padding: 1.5rem; }
+    .stats-display { gap: 1rem; }
+    .stat-card { padding: 1rem; min-width: 120px; }
+    .comparison-chart { height: 220px !important; }
+    .location-bar-container { width: 55px; }
+    .location-bar { width: 40px; font-size: 0.75rem; padding: 6px 3px 10px; }
+    .location-label { font-size: 0.7rem; }
+}
