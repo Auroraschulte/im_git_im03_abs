@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     function showDetails(location) {
         const current = visitorData[location.id]?.days[selectedDayIndex]?.visitors || 0;
         const best = getBestTime(location.id);
-        const status = current < 0 ? 'Calm' : current < 30 ? 'Moderate' : 'Busy';
+        const status = current < 30 ? 'Calm' : current < 0 ? 'Moderate' : 'Busy';
         
         const modal = document.createElement('div');
         modal.id = 'location-modal';
@@ -256,7 +256,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     const bar = document.createElement('div');
     bar.className = `location-bar ${colorClass}`;
-
+    // WICHTIG: Pixel statt Prozent
     bar.style.height = barHeightPx + 'px';
             bar.innerHTML = `<span>${count}</span>`;
             bar.onclick = () => showDetails(loc);

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luzern ohne Menschenmassen</title>
+    <link rel="stylesheet" href="test.css">
+</head>
+<body>
+    <div class="lucerne-app">
+        <header class="hero">
+            <h1>Wie du in Luzern</h1>
+            <h2>Menschenmassen meidest</h2>
+            <p class="subtitle">
+                Für ruhige Spaziergänge, bessere Fotos und einen etwas entspannteren Blick auf die Stadt.
+                Schiebe den Regler durch die Woche, um die ruhigeren Tage zu finden.
+            </p>
+        </header>
+
+        <main>
+            <section class="story-intro">
+                <p>
+                    Die Seite nutzt anonyme Besucherzählungen der Stadt Luzern und zeigt grob,
+                    wie stark einige Hotspots im Wochenverlauf frequentiert sind.
+                </p>
+            </section>
+
+            <section class="slider-container">
+                <div class="slider-header">
+                    <h2>Wochentag auswählen</h2>
+                    <div class="selected-day" id="selected-day">Monday</div>
+                </div>
+
+                <div class="slider-wrapper">
+                    <input
+                        type="range"
+                        min="0"
+                        max="6"
+                        value="0"
+                        class="slider"
+                        id="day-slider"
+                        aria-label="Tag im Wochenverlauf auswählen"
+                    >
+                    <div class="day-markers" id="day-markers"></div>
+                </div>
+            </section>
+
+            <section class="tourist-overview" id="tourist-overview" style="display:none;">
+                <h3>Heutige Besucherzahl (Auswahlpunkte)</h3>
+                <div class="total-visitors" id="total-visitors">0</div>
+                <div class="overview-status" id="overview-status">Calm</div>
+                <p id="avg-location">
+                    Ø 0 Besucher pro Standort
+                </p>
+            </section>
+
+            <section class="story-intro">
+                <p>
+                    Die Altstadt und die Kapellbrücke sind selten ganz leer – aber es gibt klar ruhigere Zeitfenster.
+                    Die Grafik hilft dir bei einer groben Planung, ersetzt aber kein Live-Monitoring.
+                </p>
+            </section>
+
+            <section class="comparison-section">
+                <h2>Hotspots am <span id="comparison-day">Monday</span></h2>
+                <div class="comparison-chart" id="comparison-chart"></div>
+                <div id="recommendation-box" class="recommendation-box"></div>
+            </section>
+
+            <section class="data-notes">
+                <h3>Was steckt hinter den Zahlen?</h3>
+                <p>
+                    Grundlage sind die gemittelten Messwerte der letzten 30 Tage. Gezählt werden Passanten
+                    an ausgewählten Punkten in der Stadt, jeweils stündlich.
+                </p>
+                <p>
+                    Die Zustände „ruhig“, „ok“ und „voll“ sind grobe Kategorien auf Basis dieser Mittelwerte.
+                    Sie dienen nur als Orientierung und können von der tatsächlichen Situation vor Ort abweichen.
+                </p>
+            </section>
+        </main>
+
+        <footer class="meta">
+            <p>FHGR Projekt IM3 · Datenjournalismus · Aurora Schulte</p>
+            <p>Quelle: Besucherzählung Stadt Luzern (Alfons Devicecounter API)</p>
+        </footer>
+    </div>
+
+    <script src="test.js"></script>
+</body>
+</html>

@@ -240,6 +240,30 @@ body {
     padding: 0 0 1.5rem 0;   
     width: 100%;
 }
+.bar {
+  flex: 1;
+  background: #3b82f6;
+  border-radius: 6px 6px 0 0;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  color: #fff;
+  font-size: 0.7rem;
+  padding-bottom: 4px;
+}
+.bar-label {
+  position: absolute;
+  bottom: -1.6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  white-space: nowrap;
+}
+
+.bar-value {
+  font-size: 0.75rem;
+}
 
 .recommendation-box {
     background: rgba(255,255,255,0.1);
@@ -249,7 +273,6 @@ body {
     text-align: center;
     border: 1px solid rgba(255,255,255,0.2);
 }
-
 
 .location-bar-container {
     display: flex;
