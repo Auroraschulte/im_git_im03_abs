@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
             return result;
         } catch (error) {
-            console.error('❌ API Error:', error);
+            console.error(' API Error:', error);
             return null;
         }
     }
@@ -243,11 +243,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                     : 'location-bar-busy';
        let barHeightPx;
     if (count < 30) {
-        barHeightPx = 50;      // unter 30 Besucher
+        barHeightPx = 50;     
     } else if (count < 80) {
-        barHeightPx = 100;      // 30–79 Besucher
+        barHeightPx = 100;      
     } else {
-        barHeightPx = 300;     // 80+ Besucher
+        barHeightPx = 300;    
     }
 
     const container = document.createElement('div');
@@ -287,7 +287,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('Init error:', e);
     }
 
-    // Events
+   
     if (slider) slider.oninput = () => { selectedDayIndex = +slider.value; updateDisplay(); };
     
     if (dayMarkersEl) {

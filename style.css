@@ -520,20 +520,33 @@ body {
     font-size: 0.8rem;
   }
 
-  .comparison-section {
-    padding: 1.75rem 1rem;
-  }
-
   
- .location-label {
-    flex: 0 0 40%;
-    font-size: 0.95rem;       /* größer als vorher 0.8rem */
-  }
 
-  .location-bar-container {
-    flex: 0 0 60%;
-    height: 28px;             /* Handy-Balken noch etwas höher */
-  }
+  .comparison-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.location-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.location-label {
+  flex: 0 0 35%;   /* Standort links */
+}
+
+.location-bar-container {
+  flex: 20% 0 20%%;   /* Balken+Zahl rechts */
+}
+
+.location-bar {
+  height: 18px;           /* fixe Höhe, Länge kommt aus width% */
+  border-radius: 12px;
+}
+
 
   .location-value {
     font-size: 1.1rem;        /* Zahl sehr gut lesbar */
