@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     const germanDayNames = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
-    
+
     const locations = [
         { id: 'kapellbrücke', name: 'Kapellbrücke', shortName: 'Kapellbrücke', description: 'Iconic Chapel Bridge - perfect for photos without crowds.' },
         { id: 'rathausquai', name: 'Rathausquai', shortName: 'Rathausquai', description: 'Historic Old Town - explore medieval architecture peacefully.' },
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
             const data = await response.json();
             console.log('API data:', data);
-            
+
             if (!Array.isArray(data) || data.length === 0) {
                 console.warn(' No data from API');
                 return null;
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     function convertToUIData(weeklyAverages) {
         const dayNameMap = {
             'Sonntag': 'Sunday', 'Montag': 'Monday', 'Dienstag': 'Tuesday',
-            'Mittwoch': 'Wednesday', 'Donnerstag': 'Thursday', 
+            'Mittwoch': 'Wednesday', 'Donnerstag': 'Thursday',
             'Freitag': 'Friday', 'Samstag': 'Saturday'
         };
 
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const current = visitorData[location.id]?.days[selectedDayIndex]?.visitors || 0;
         const best = getBestTime(location.id);
         const status = current < 0 ? 'Calm' : current < 30 ? 'Moderate' : 'Busy';
-        
+
         const modal = document.createElement('div');
         modal.id = 'location-modal';
         modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:10000;display:flex;align-items:center;justify-content:center;padding:1rem';
@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <h2 style="color:#248BCC;margin-top:0">${location.name}</h2>
                 <p><strong>Description:</strong> ${location.description}</p>
                 <p><strong>Today (${dayNames[selectedDayIndex]}):</strong> 
-                    <span style="color:${status==='Calm'?'#2ecc71':status==='Moderate'?'#f39c12':'#e74c3c'};font-weight:bold;font-size:1.1rem">${status}</span> 
+                    <span style="color:${status === 'Calm' ? '#2ecc71' : status === 'Moderate' ? '#f39c12' : '#e74c3c'};font-weight:bold;font-size:1.1rem">${status}</span> 
                     (${current} visitors)
                 </p>
                 <p><strong>Best time:</strong> <strong>${best.day}</strong> ~10AM (${best.visitors} expected)</p>
@@ -158,8 +158,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         const day = dayNames[selectedDayIndex];
         if (selectedDayEl) selectedDayEl.textContent = day;
         if (comparisonDayEl) comparisonDayEl.textContent = day;
-        
-        document.querySelectorAll('.day-marker')?.forEach((m,i) => m.classList.toggle('active', i===selectedDayIndex));
+
+        document.querySelectorAll('.day-marker')?.forEach((m, i) => m.classList.toggle('active', i === selectedDayIndex));
         updateStats();
         updateTouristOverview();
         updateChart();
@@ -169,13 +169,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!crowdStatusEl || !recommendationEl) return;
         const data = visitorData.kapellbrücke?.days[selectedDayIndex];
         if (!data) return;
-        
+
         const count = data.visitors;
         let status, rec;
         if (count < 50) { status = 'Calm'; rec = 'Perfect!'; }
         else if (count < 100) { status = 'Moderate'; rec = 'OK'; }
         else { status = 'Busy'; rec = 'Avoid'; }
-        
+
         crowdStatusEl.textContent = status;
         crowdStatusEl.className = `stat-value ${status.toLowerCase()}`;
         recommendationEl.textContent = rec;
@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const total = getTotalVisitorsToday();
         const avg = Math.round(total / locations.length);
         const status = total < 200 ? 'Calm' : total < 400 ? 'Moderate' : 'Busy';
-        
+
         if (totalVisitorsEl) totalVisitorsEl.textContent = total;
         if (overviewStatusEl) {
             overviewStatusEl.textContent = status;
@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!chartEl) return;
         const maxToday = Math.max(...locations.map(loc => visitorData[loc.id]?.days[selectedDayIndex]?.visitors || 0));
         const scaleFactor = maxToday > 0 ? 40 / maxToday : 1;
-        
+
         chartEl.innerHTML = `
             <div style="display:flex;
                 justify-content:center;
@@ -234,37 +234,37 @@ document.addEventListener('DOMContentLoaded', async () => {
         locations.forEach(loc => {
             const data = visitorData[loc.id]?.days[selectedDayIndex];
             if (!data) return;
-            
+
             const count = data.visitors;
-            const colorClass = count < 30 
-                ? 'location-bar-quiet' 
-                : count < 80 
+            const colorClass = count < 30
+                ? 'location-bar-quiet'
+                : count < 80
                     ? 'location-bar-moderate'
                     : 'location-bar-busy';
-       let barHeightPx;
-    if (count < 30) {
-        barHeightPx = 50;     
-    } else if (count < 80) {
-        barHeightPx = 100;      
-    } else {
-        barHeightPx = 300;    
-    }
+            let barHeightPx
+            if (count < 30) {
+                barHeightPx = 50;
+            } else if (count < 80) {
+                barHeightPx = 100;
+            } else {
+                barHeightPx = 300;
+            }
 
-    const container = document.createElement('div');
-    container.className = 'location-bar-container';
-    container.title = `${loc.name}: ${count} visitors`;
-    
-    const bar = document.createElement('div');
-    bar.className = `location-bar ${colorClass}`;
+            const container = document.createElement('div');
+            container.className = 'location-bar-container';
+            container.title = `${loc.name}: ${count} visitors`;
 
-    bar.style.height = barHeightPx + 'px';
+            const bar = document.createElement('div');
+            bar.className = `location-bar ${colorClass}`;
+
+            bar.style.height = barHeightPx + 'px';
             bar.innerHTML = `<span>${count}</span>`;
             bar.onclick = () => showDetails(loc);
-            
+
             const label = document.createElement('div');
             label.className = 'location-label';
             label.textContent = loc.shortName;
-            
+
             container.appendChild(bar);
             container.appendChild(label);
             chartEl.appendChild(container);
@@ -281,28 +281,28 @@ document.addEventListener('DOMContentLoaded', async () => {
             generateSampleData();
             if (recBoxEl) recBoxEl.innerHTML = '<p style="color:#f39c12;font-style:italic"> Sample data - API temporarily unavailable</p>';
         }
-    } catch(e) {
+    } catch (e) {
         generateSampleData();
         if (recBoxEl) recBoxEl.innerHTML = '<p style="color:#e74c3c;font-style:italic"> API error - using sample data</p>';
         console.error('Init error:', e);
     }
 
-   
+
     if (slider) slider.oninput = () => { selectedDayIndex = +slider.value; updateDisplay(); };
-    
+
     if (dayMarkersEl) {
         dayNames.forEach((day, i) => {
             const marker = document.createElement('div');
             marker.className = 'day-marker';
-            marker.textContent = day.slice(0,3).toUpperCase();
-            marker.onclick = () => { 
-                selectedDayIndex = i; 
-                if (slider) slider.value = i; 
-                updateDisplay(); 
+            marker.textContent = day.slice(0, 3).toUpperCase();
+            marker.onclick = () => {
+                selectedDayIndex = i;
+                if (slider) slider.value = i;
+                updateDisplay();
             };
             dayMarkersEl.appendChild(marker);
         });
     }
-    
+
     updateDisplay();
 });
