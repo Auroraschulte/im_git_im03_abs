@@ -1,4 +1,4 @@
-##How to avoid people in lucerne
+## **How to avoid people in lucerne**
 
 ## 1. Projektbeschreibung  
 
