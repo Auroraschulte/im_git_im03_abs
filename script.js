@@ -283,7 +283,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  // INIT
+
+  
 
   try {
     const apiData = await getWeeklyAverages();
